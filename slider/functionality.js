@@ -1,32 +1,31 @@
-let x = 0;
-let output = document.getElementById('output')
-let meter = document.getElementById('meter')
-output.innerHTML = x;
+const MIN_VALUE = 0
+const MAX_VALUE = 10
 
-function plus() {
-    if (x >= 10) {
-        return false;
-    }
+const outputElement = document.getElementById("output")
+const meterElement = document.getElementById('meter')
 
-    if (x >= 7) {
-        meter.style.backgroundColor = '#f00'
-        meter.style.filter = 'drop-shadow(0 0 2.5px #f00) drop-shadow(0 0 10px #f00)'
-    }
+let x = 0
 
-    output.innerHTML = ++x;
-    meter.style.height = x * 10 + '%'
+function updateMeter(value) {
+    outputElement.textContent = value
+    meterElement.style.height = `${value * 10}%`
+
+    const color = value >= 7 ? 'red' : 'rgb(0, 255, 0)'
+
+    meterElement.style.backgroundColor = color
+    meterElement.style.filter = `drop-shadow(0 0 2.5px ${color}) drop-shadow(0 0 10px ${color})`
 }
 
-function minus() {
-    if (x <= 0) {
-        return false;
-    }
+function increacement() {
+    if (x >= MAX_VALUE) return
 
-    if (x <= 7) {
-        meter.style.background = '#0f0'
-        meter.style.filter = 'drop-shadow(0 0 2.5px #0f0) drop-shadow(0 0 10px #0f0)'
-    }
+    x++
+    updateMeter(x)
+}
 
-    output.innerHTML = --x
-    meter.style.height = x * 10 + '%'
+function decrecement() {
+    if (x <= MIN_VALUE) return
+    
+    x--
+    updateMeter(x)
 }
